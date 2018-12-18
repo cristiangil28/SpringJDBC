@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!--uso de setters o propiedades  
+	ref indica la conexion con otra clase o bean, mejor dicho la relación de 
+	estas dos clases-->
+	<!--<bean id="admin" class="com.cristian.beans.Administrador">
+	
+		<property name="id" value="88"></property>
+		<property name="nombre" value="cristian"></property>
+		
+	<property name="direccion" ref="direccion"></property>
+	</bean>
+	fin de setter o propiedades-->
+	<!-- uso de constructor -->
+	<!-- <bean id="admin" class="com.cristian.beans.Administrador">
+
+	<constructor-arg value="77" name="id"></constructor-arg>
+	<constructor-arg name="nombre" value="david"></constructor-arg>
+	
+	</bean>
+	fin constructor-->
+	
+	<!-- bean de conexion con la base de datos de MYSQL -->
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
+
+		<property value="com.mysql.jdbc.Driver" name="driverClassName"/>
+
+		<property value="jdbc:mysql://localhost:3306/springbd" name="url"/>
+
+		<property value="root" name="username"/>
+
+		<property value="" name="password"/>
+
+	</bean>
+	<context:component-scan base-package="com.cristian.beans"></context:component-scan>
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<tx:annotation-driven />
+</beans>
